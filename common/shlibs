@@ -1,0 +1,74 @@
+# --*-- shell --*--
+#
+# This file represents a map between shared libraries and packages
+# in XBPS. Every shared library installed by a package must be
+# listed here and mapped to a binary package.
+#
+# The first field lists the exact SONAME embedded in binaries.
+#
+# The second field lists the package/version tuple containing the SONAME.
+# The version component is used as greater than or equal to that version
+# in resulting binary package.
+#
+# The third field (optional) specifies that shared library should not be used
+# to perform checks of soname bumps.
+#
+# PLEASE NOTE: when multiple packages provide the same SONAME, the first
+# one (order top->bottom) is preferred over the next ones.
+#
+libEGL.so.1 libEGL-7.11_1
+libGLESv2.so.2 libGLES-1.0_1
+libXcursor.so.1 libXcursor-1.1.9_1
+libaquamarine.so.12 aquamarine-0.13.0_2
+libOpenGL.so.0 libglvnd-1.3.0_1
+libc.so.6 glibc-2.41_1
+libffi.so.7 libffi-3.3_1
+libcairo.so.2 cairo-1.8.6_1
+libdisplay-info.so.2 libdisplay-info-0.2.0_1
+libdrm.so.2 libdrm-2.4.6_1
+libeis.so.1 libei-1.1.0_1
+libgbm.so.1 libgbm-9.0_1
+libjpeg.so.8 libjpeg-turbo-1.3.0_2
+libgcc_s.so.1 libgcc-4.4.0_1
+libgio-2.0.so.0 glib-2.86.0_1
+libglslang-default-resource-limits.so.16 glslang-16.2.0_1
+libglslang.so.16 glslang-16.2.0_1
+libglib-2.0.so.0 glib-2.86.0_1
+libgobject-2.0.so.0 glib-2.86.0_1
+libhyprcursor.so.0 hyprcursor-0.1.13_1
+libhyprgraphics.so.4 hyprgraphics-0.5.1_1
+libinput.so.10 libinput-1.2.0_1
+liblcms2.so.2 lcms2-2.2_1
+liblua5.4.so.5.4 lua54-5.4.0_1
+libhyprutils.so.13 hyprutils-0.14.0_1
+libhyprwire.so.3 hyprwire-0.3.1_1 
+libhyprlang.so.2 hyprlang-0.6.8_2
+libm.so.6 glibc-2.41_1
+libmuparser.so.2 muparser-2.2.5_1
+libpugixml.so.1 pugixml-1.6_1
+libmagic.so.1 libmagic-5.12_1
+libpango-1.0.so.0 pango-1.24.0_1
+libpangocairo-1.0.so.0 pango-1.24.0_1
+libpng16.so.16 libpng-1.6.2_1
+librsvg-2.so.2 librsvg-2.26.0_1
+libpixman-1.so.0 pixman-0.14.0_1
+libre2.so.11 re2-2025.11.05_1
+libreadline.so.8 libreadline8-8.0_1
+libseat.so.1 libseat-0.3.0_1
+libstdc++.so.6 libstdc++-4.4.0_1
+libwebp.so.7 libwebp-0.6.0_1
+libtomlplusplus.so.3 tomlplusplus-3.4.0_1
+libudis86.so.0 udis86-1.7.2_4
+libuuid.so.1 libuuid-2.18_1
+libwayland-server.so.0 wayland-1.6.0_1
+libxcb-composite.so.0 libxcb-1.2_1
+libxcb-errors.so.0 xcb-util-errors-1.0_1
+libxcb-icccm.so.4 xcb-util-wm-0.3.9_1
+libxcb-render.so.0 libxcb-1.2_1
+libxcb-res.so.0 libxcb-1.2_1
+libxcb-xfixes.so.0 libxcb-1.2_1
+libxcb.so.1 libxcb-1.2_1
+libxkbcommon.so.0 libxkbcommon-0.2.0_1
+libzip.so.5 libzip-1.7.3_2
+libudev.so.1 eudev-libudev-1.6_1
+libwayland-client.so.0 wayland-1.10.0_1

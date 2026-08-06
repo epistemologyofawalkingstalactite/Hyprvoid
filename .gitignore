@@ -1,0 +1,5 @@
+# Paquetes y temporales de xbps-src
+common/*
+!common/shlibs
+masterdir-x86_64/
+hostdir/

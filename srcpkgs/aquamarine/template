@@ -1,0 +1,33 @@
+# Template file for 'aquamarine'
+pkgname=aquamarine
+version=0.13.0
+revision=2
+#archs="i686 x86_64"
+#build_wrksrc=
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="libglvnd-devel hyprwayland-scanner libseat-devel libinput-devel wayland-devel wayland-protocols hyprutils-devel pixman-devel libdrm-devel libgbm-devel libudev-devel libdisplay-info-devel hwids"
+depends="libglvnd libseat libinput wayland hyprutils pixman libdrm libgbm libudev libgudev libdisplay-info"
+short_desc="aquamarine btw"
+maintainer=" <>"
+license="BSD-3-Clause"
+homepage="https://github.com/hyprwm/aquamarine"
+changelog="https://raw.githubusercontent.com/hyprwm/aquamarine/main/CHANGELOG.md"
+distfiles="https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
+checksum=9bf14d9dd724a51f28c225951320256f3a69ac559a10f4f14cc8277100c657dd
+
+aquamarine-devel_package() {
+        depends="${sourcepkg}>=${version}_${revision}"
+        short_desc+=" - development files"
+        pkg_install() {
+                vmove usr/lib/pkgconfig
+                vmove usr/include
+                vmove "usr/lib/*.so"
+        }
+}
+

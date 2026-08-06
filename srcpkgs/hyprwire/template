@@ -1,0 +1,60 @@
+# Template file for 'hyprwire'
+pkgname=hyprwire
+version=0.3.1
+revision=1
+#archs="i686 x86_64"
+#build_wrksrc=
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="pugixml-devel hyprutils-devel libffi-devel"
+depends="pugixml hyprutils libffi"
+short_desc="hyprwire..."
+maintainer=" <>"
+license="BSD-3-Clause"
+homepage="https://github.com/hyprwm/hyprwire"
+changelog="https://raw.githubusercontent.com/hyprwm/hyprwire/main/CHANGELOG.md"
+distfiles="https://github.com/hyprwm/hyprwire/archive/refs/tags/v${version}.tar.gz"
+checksum=92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737
+
+hyprwire-devel_package() {
+        depends="${sourcepkg}>=${version}_${revision}"
+        short_desc+=" - development files"
+        pkg_install() {
+                vmove usr/lib/pkgconfig
+                vmove usr/lib/cmake
+                vmove usr/include
+                vmove "usr/lib/*.so"
+        }
+}
+
+post_patch() {
+        python3 -c '
+import glob, re
+for filepath in glob.glob("src/**/*.cpp", recursive=True):
+    with open(filepath, "r") as f:
+        content = f.read()
+    
+    # Reemplazar apéndices de listas { ... }
+    content = re.sub(
+        r"([a-zA-Z0-9_.]+)\.append_range\s*\(\s*(std::vector<[^>]+>)?\s*(\{.*?\})\s*\)\s*;",
+        r"\1.insert(\1.end(), \3);",
+        content,
+        flags=re.DOTALL
+    )
+    
+    # Reemplazar append_range usando un bloque de ámbito aislado con llaves
+    content = re.sub(
+        r"([a-zA-Z0-9_.]+)\.append_range\s*\(\s*(.+?)\s*\)\s*;",
+        r"{ auto _v = \2; \1.insert(\1.end(), _v.begin(), _v.end()); }",
+        content
+    )
+    
+    with open(filepath, "w") as f:
+        f.write(content)
+'
+}

@@ -1,0 +1,1 @@
+XBPS_MAKEFLAGS="-j$(nproc)"
