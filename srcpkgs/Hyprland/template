@@ -61,73 +61,40 @@ makedepends="
     lua54-devel
 "
 depends="
-    aquamarine
-    cairo
-    glib
-    glslang
-    hyprcursor
-    hyprgraphics
-    hyprlang
-    hyprutils
-    hyprwayland-scanner
-    hyprwire
-    lcms2
-    libXcursor
-    libdrm
-    libei
-    libgbm
+    udis86
     libglvnd
-    libinput
-    libreadline8
-    libuuid
-    libxkbcommon
-    lua54
     mesa
     mesa-dri
-    muparser
+    glslang
+    SPIRV-Tools
+    aquamarine
+    hyprlang
+    hyprcursor
+    hyprutils
+    hyprgraphics
+    libxkbcommon
+    wayland
+    libuuid
+    cairo
     pango
     pixman
+    libXcursor
+    libdrm
+    libinput
+    libei
+    libgbm
+    glib
     re2
-    SPIRV-Tools
-    tomlplusplus
-    udis86
-    wayland
-    xcb-util-errors
+    muparser
+    lcms2
+    hyprwayland-scanner
     xcb-util-wm
+    xcb-util-errors
+    hyprwire
+    libreadline8
+    tomlplusplus
+    lua54
 "
-#depends="
-#    udis86
-#    libglvnd
-#    mesa
-#    mesa-dri
-#    glslang
-#    SPIRV-Tools
-#    aquamarine
-#    hyprlang
-#    hyprcursor
-#    hyprutils
-#    hyprgraphics
-#    libxkbcommon
-#    wayland
-#    libuuid
-#    cairo
-#    pango
-#    pixman
-#    libXcursor
-#    libdrm
-#    libinput
-#    libei
-#    libgbm
-#    glib
-#    re2
-#    muparser
-#    lcms2
-#    xcb-util-wm
-#    xcb-util-errors
-#    hyprwire
-#    libreadline8
-#    tomlplusplus
-#"
 short_desc="Hyprland vro"
 maintainer=" <>"
 license="BSD-3-Clause"
