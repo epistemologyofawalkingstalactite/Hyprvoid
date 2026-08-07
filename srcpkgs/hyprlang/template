@@ -12,7 +12,7 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
 makedepends="hyprutils-devel"
-depends="hyprutils"
+depends=""
 short_desc="hyprlang bro"
 maintainer=" <>"
 license="LGPL-3.0-or-later"
@@ -29,4 +29,8 @@ hyprlang-devel_package() {
                 vmove usr/include
                 vmove "usr/lib/*.so"
         }
+}
+
+post_install() {
+    vlicense LICENSE
 }

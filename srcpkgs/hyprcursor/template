@@ -30,3 +30,7 @@ hyprcursor-devel_package() {
                 vmove "usr/lib/*.so"
         }
 }
+
+post_install() {
+	vlicense LICENSE
+}

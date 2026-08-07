@@ -9,6 +9,18 @@
 
 # ---
 
+# Variables
+
+# Hacer el editor default "vim"
+export EDITOR="vim"
+
+# Mejorar el historial de comandos
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+
+# ---
+
 # Alias para hacer la vida más fácil
 
 # 0- default ls colorines
@@ -31,6 +43,26 @@ alias ssd-h='sudo shutdown -h now'
 alias sz='sudo zzz'
 alias sZ='sudo ZZZ'
 
+# -5 Moverse atrás solo poniendo puntos
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# -6 Linkear sin escribir sudo
+alias sl='sudo ln'
+
+# -? Para recargar rápido
+alias so='source ~/.bashrc'
+alias eso='$EDITOR ~/.bashrc'
+
+# ---
+
+# Funciones avanzadas
+
+# Crea una carpeta y meteté en ella
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
 # ---
 
 # Ejemplo de bash con colorines (?)
@@ -39,21 +71,12 @@ alias sZ='sudo ZZZ'
 # PS1='[\u@\h \W]\$ '
 
 # Nueva
-PS1='\[\033[01;32m\][\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;32m\]]\[\033[00m\] \$ '
-
-# ---
-
-# Hacer el editor default "vim"
-export EDITOR="vim"
+PS1='\[\033[01;32m\][\u@\h\[\033[00m\]:\[\033[00;34m\]\w\[\033[00m\]\[\033[01;32m\]]\[\033[00m\] \$ '
 
 # ---
 
 # Poner un fastfetch.
 fastfetch
-
-# ---
-
-# Variables
 
 # ---
 

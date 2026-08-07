@@ -61,39 +61,6 @@ makedepends="
     lua54-devel
 "
 depends="
-    udis86
-    libglvnd
-    mesa
-    mesa-dri
-    glslang
-    SPIRV-Tools
-    aquamarine
-    hyprlang
-    hyprcursor
-    hyprutils
-    hyprgraphics
-    libxkbcommon
-    wayland
-    libuuid
-    cairo
-    pango
-    pixman
-    libXcursor
-    libdrm
-    libinput
-    libei
-    libgbm
-    glib
-    re2
-    muparser
-    lcms2
-    hyprwayland-scanner
-    xcb-util-wm
-    xcb-util-errors
-    hyprwire
-    libreadline8
-    tomlplusplus
-    lua54
 "
 short_desc="Hyprland vro"
 maintainer=" <>"
@@ -106,8 +73,8 @@ checksum=bf9578ba1a5b8d82e86a03c85e7f985c8f5922236037aa5a54850d723c0d6c85
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
     configure_args+=" -DCMAKE_CXX_FLAGS=\"-lexecinfo\""
-    makedepends+=" libexecinfo-devel"
-    depends+=" libexecinfo"
+    makedepends+=""
+    depends+=""
 fi
 
 post_install() {
@@ -127,10 +94,18 @@ post_install() {
     vinstall build/hyprland.pc 644 usr/share/pkgconfig
 }
 
+Hyprland-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision} cmake cpio hyprwayland-scanner git gcc meson pkgconf ${makedepends}"
+	short_desc="Dynamic tiling Wayland compositor - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/share/pkgconfig
+	}
+}
+
 post_patch() {
     python3 -c '
 import glob
-
 
 # 1. Corregir string_view en hyprctl
 for filepath in glob.glob("hyprctl/src/main.cpp", recursive=True):

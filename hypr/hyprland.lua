@@ -19,7 +19,7 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
     output   = "eDP-1",
-    mode     = "1920x1080@90",
+    mode     = "1920x1080@60",
     position = "0x0",
     scale    = "1",
 })
@@ -70,14 +70,8 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
--- Para tema oscuro jeje
-
 hl.env("GTK_THEME", "Adwaita:dark")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-
--- Ejemplos de variables en hyprland.conf
-hl.env("XDG_SESSION_TYPE", "wayland")
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 
 -----------------------
 ----- PERMISSIONS -----

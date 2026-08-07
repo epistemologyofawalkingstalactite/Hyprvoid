@@ -12,7 +12,7 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
 makedepends="libglvnd-devel hyprwayland-scanner libseat-devel libinput-devel wayland-devel wayland-protocols hyprutils-devel pixman-devel libdrm-devel libgbm-devel libudev-devel libdisplay-info-devel hwids"
-depends="libglvnd libseat libinput wayland hyprutils pixman libdrm libgbm libudev libgudev libdisplay-info"
+depends=""
 short_desc="aquamarine btw"
 maintainer=" <>"
 license="BSD-3-Clause"
@@ -31,3 +31,6 @@ aquamarine-devel_package() {
         }
 }
 
+post_install() {
+	vlicense LICENSE
+}
