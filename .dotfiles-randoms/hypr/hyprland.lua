@@ -17,10 +17,11 @@
 ------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+
 hl.monitor({
-    output   = "",
-    mode     = "1920x1080@60",
-    position = "auto",
+    output   = "eDP-1",
+    mode     = "1920x1080@99.89",
+    position = "0x0",
     scale    = "1",
 })
 
@@ -50,12 +51,15 @@ local menu        = "rofi -show drun"
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
 -- end)
 
--- Iniciar servicios de sesión al arrancar Hyprland
 hl.on("hyprland.start", function ()
+    -- 1. Iniciar servicios de audio
     hl.exec_cmd("pipewire &")
     hl.exec_cmd("pipewire-pulse &")
     hl.exec_cmd("wireplumber &")
+    
+    -- 2. Otros demonios
     hl.exec_cmd("wl-paste --watch cliphist store &")
+    hl.exec_cmd("xsettingsd &")
 end)
 
 -------------------------------
@@ -68,7 +72,7 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.env("GTK_THEME", "Adwaita:dark")
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -152,7 +156,7 @@ hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1} 
 
 -- Default springs
 -- hl.curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 500, dampening = 41 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 500, dampening = 30 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
@@ -235,10 +239,10 @@ hl.config({
         kb_options = "",
         kb_rules   = "",
 
-        follow_mouse = 2,
-
         repeat_delay = 167,
         repeat_rate = 167,
+
+        follow_mouse = 2,
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
         accel_profile = "flat",
@@ -249,11 +253,7 @@ hl.config({
         },
     },
     cursor = {
-        no_hardware_cursors = false,    -- Set to true if cursor is invisible (Nvidia)
-        hotspot_padding = 0,           -- Padding for cursor hotspots
-        inactive_timeout = 0,          -- Seconds before hiding cursor (0 to disable)
         no_warps = true,              -- Prevent cursor warping on window focus
-        zoom_factor = 1.0,             -- Live magnification factor
     },
 })
 
@@ -286,9 +286,9 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + X", hl.dsp.layout("togglesplit"))    -- dwindle only
 
--- Move focus with mainMod + vimotions
+-- Move focus with mainMod + vim motions
 hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k",    hl.dsp.focus({ direction = "up" }))
@@ -327,10 +327,6 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = tr
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
-
--- =============================================
--- Capturas de pantalla con grim, slurp y wl-clipboard
--- =============================================
 
 -- Pantalla completa (print)
 hl.bind("print", hl.dsp.exec_cmd("grim - | wl-copy"))

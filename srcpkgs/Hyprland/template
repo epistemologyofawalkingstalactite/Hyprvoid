@@ -1,7 +1,7 @@
 # Template file for 'Hyprland'
 pkgname=Hyprland
 version=0.56.0
-revision=3
+revision=1
 #archs="i686 x86_64"
 #build_wrksrc=
 build_style=cmake
@@ -15,16 +15,17 @@ configure_args+=" -DNO_SYSTEMD:BOOL=true"
 #make_dirs="/var/log/dir 0755 root root"
 othermakedepends="
     cmake
-    ninja
-    pkg-config
-    gcc
+    cpio
     glslang
     hyprwayland-scanner
+    hyprwire
+    ninja
+    pkg-config
+    wayland-devel
+    xxd
     git
-    cpio
 "
 hostmakedepends=$othermakedepends
-# hyprwayland-scanner or wayland-scanner++ por alguna razón no funca.
 makedepends="
     udis86-devel
     libglvnd-devel
@@ -60,8 +61,8 @@ makedepends="
     tomlplusplus-devel
     lua54-devel
 "
-depends="
-"
+# depends="
+# "
 short_desc="Hyprland vro"
 maintainer=" <>"
 license="BSD-3-Clause"
@@ -73,10 +74,13 @@ checksum=bf9578ba1a5b8d82e86a03c85e7f985c8f5922236037aa5a54850d723c0d6c85
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
     configure_args+=" -DCMAKE_CXX_FLAGS=\"-lexecinfo\""
-    makedepends+=""
-    depends+=""
+    makedepends+=" libexecinfo-devel"
+    depends+=" libexecinfo"
 fi
 
+pre_configure() {
+	xxd -i -n EXAMPLE_CONFIG_BYTES_LUA example/hyprland.lua > src/config/lua/example_config_lua_data.h
+}
 post_install() {
 
 # license
