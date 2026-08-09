@@ -55,6 +55,11 @@ alias xq='xbps-query'
 alias w3ms='w3m https://duckduckgo.com'
 alias w3md='w3m https://duckduckgo.com'
 
+# 2.1- para music demon
+alias msvi='ncmpcpp'
+alias music-demon='mpd'
+alias ms-kill='pkill -9 mpdp'
+
 # 3- Para reiniciar y apagar
 alias ssd-r='sudo shutdown -r now'
 alias ssd-h='sudo shutdown -h now'
