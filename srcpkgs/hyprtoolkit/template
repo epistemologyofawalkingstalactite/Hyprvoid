@@ -10,8 +10,21 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #make_install_args=""
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config hyprwayland-scanner wayland-protocols"
 makedepends="
+libglvnd-devel
+wayland-devel
+hyprutils-devel
+hyprlang-devel
+pixman-devel
+libdrm-devel
+libgbm-devel
+libxkbcommon-devel
+pango-devel
+cairo-devel
+iniparser-devel
+hyprgraphics-devel
+aquamarine-devel
 "
 depends=""
 short_desc="a toolkit for hyprland"
@@ -21,3 +34,39 @@ homepage="https://github.com/hyprwm/hyprtoolkit"
 changelog="https://raw.githubusercontent.com/hyprwm/hyprtoolkit/main/CHANGELOG.md"
 distfiles="https://github.com/hyprwm/hyprtoolkit/archive/refs/tags/v${version}.tar.gz"
 checksum=2fb59789f231c1c4e9154ceffc1e7524c0cae154807c0d57e6166806255b570f
+
+post_install() {
+    vlicense LICENSE
+}
+
+hyprtoolkit-devel_package() {
+        depends="${sourcepkg}>=${version}_${revision}"
+        short_desc+=" - development files"
+        pkg_install() {
+            vmove usr/lib/pkgconfig
+            vmove usr/include
+        }
+}
+
+post_patch() {
+    python3 - << 'EOF'
+import pathlib
+
+path = pathlib.Path("src/system/Icons.cpp")
+if path.exists():
+    content = path.read_text(encoding="utf-8")
+
+    old_1 = 'g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: Found {} as default fallback", themeDir.value());'
+    old_2 = 'g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: parsing inherited theme {}", *inheritTheme);'
+
+    new_1 = 'g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: Found {} as default fallback", themeDir.value().empty() ? "" : themeDir.value()[0]);'
+    new_2 = 'g_logger->log(HT_LOG_TRACE, "CSystemIconFactory: parsing inherited theme {}", (*inheritTheme).empty() ? "" : (*inheritTheme)[0]);'
+
+    if old_1 in content and old_2 in content:
+        content = content.replace(old_1, new_1).replace(old_2, new_2)
+        path.write_text(content, encoding="utf-8")
+        print("--> Parche de compatibilidad GCC 14 aplicado en Icons.cpp")
+    else:
+        print("--> Advertencia: No se encontraron las líneas exactas en Icons.cpp")
+EOF
+}

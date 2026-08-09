@@ -11,7 +11,11 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
-makedepends="pugixml-devel hyprutils-devel libffi-devel"
+makedepends="
+pugixml-devel
+hyprutils-devel
+libffi-devel
+"
 #depends=""
 short_desc="hyprwire..."
 maintainer=" <>"
@@ -21,19 +25,19 @@ changelog="https://raw.githubusercontent.com/hyprwm/hyprwire/main/CHANGELOG.md"
 distfiles="https://github.com/hyprwm/hyprwire/archive/refs/tags/v${version}.tar.gz"
 checksum=92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737
 
+post_install() {
+    vlicense LICENSE
+}
+
 hyprwire-devel_package() {
         depends="${sourcepkg}>=${version}_${revision}"
         short_desc+=" - development files"
         pkg_install() {
-                vmove usr/lib/pkgconfig
-                vmove usr/lib/cmake
-                vmove usr/include
-                vmove "usr/lib/*.so"
+            vmove usr/lib/pkgconfig
+            vmove usr/lib/cmake
+            vmove usr/include
+            vmove usr/lib/*.so
         }
-}
-
-post_install() {
-	vlicense LICENSE
 }
 
 post_patch() {

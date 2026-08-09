@@ -11,7 +11,19 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
-makedepends="libglvnd-devel libdrm-devel pixman-devel cairo-devel pango-devel hyprutils-devel libjpeg-turbo-devel libwebp-devel file-devel libpng-devel librsvg-devel"
+makedepends="
+libglvnd-devel
+libdrm-devel
+pixman-devel
+cairo-devel
+pango-devel
+hyprutils-devel
+libjpeg-turbo-devel
+libwebp-devel
+file-devel
+libpng-devel
+librsvg-devel
+"
 #depends=""
 short_desc="hyprgraphics btw"
 maintainer=" <>"
@@ -21,16 +33,16 @@ changelog="https://raw.githubusercontent.com/hyprwm/hyprgraphics/main/CHANGELOG.
 distfiles="https://github.com/hyprwm/hyprgraphics/archive/refs/tags/v${version}.tar.gz"
 checksum=861ecaad872835922dd5745a612d7a4cc7bfc4babb1d06bc92bc63c2ac013b74
 
+post_install() {
+    vlicense LICENSE
+}
+
 hyprgraphics-devel_package() {
         depends="${sourcepkg}>=${version}_${revision}"
         short_desc+=" - development files"
         pkg_install() {
-                vmove usr/lib/pkgconfig
-                vmove usr/include
-                vmove "usr/lib/*.so"
+            vmove usr/lib/pkgconfig
+            vmove usr/include
+            vmove usr/lib/*.so
         }
-}
-
-post_install() {
-	vlicense LICENSE
 }

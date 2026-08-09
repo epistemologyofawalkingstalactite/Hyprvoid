@@ -10,8 +10,19 @@ configure_args="-DCMAKE_BUILD_TYPE=Release"
 #make_install_args=""
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
-hostmakedepends="pkg-config"
-makedepends="libglvnd-devel hyprwayland-scanner libseat-devel libinput-devel wayland-devel wayland-protocols hyprutils-devel pixman-devel libdrm-devel libgbm-devel libudev-devel libdisplay-info-devel hwids"
+hostmakedepends="pkg-config hyprwayland-scanner wayland-protocols hwids"
+makedepends="
+libglvnd-devel
+libseat-devel
+libinput-devel
+wayland-devel
+hyprutils-devel
+pixman-devel
+libdrm-devel
+libgbm-devel
+libudev-devel
+libdisplay-info-devel
+"
 #depends=""
 short_desc="aquamarine btw"
 maintainer=" <>"
@@ -21,16 +32,17 @@ changelog="https://raw.githubusercontent.com/hyprwm/aquamarine/main/CHANGELOG.md
 distfiles="https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
 checksum=9bf14d9dd724a51f28c225951320256f3a69ac559a10f4f14cc8277100c657dd
 
+post_install() {
+    vlicense LICENSE
+}
+
 aquamarine-devel_package() {
         depends="${sourcepkg}>=${version}_${revision}"
         short_desc+=" - development files"
         pkg_install() {
-                vmove usr/lib/pkgconfig
-                vmove usr/include
-                vmove "usr/lib/*.so"
+            vmove usr/lib/pkgconfig
+            vmove usr/include
+            vmove usr/lib/*.so
         }
 }
 
-post_install() {
-	vlicense LICENSE
-}

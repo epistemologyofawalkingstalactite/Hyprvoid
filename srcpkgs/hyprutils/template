@@ -10,8 +10,10 @@ configure_args+=" -DCMAKE_BUILD_TYPE:STRING=Release"
 #make_install_args=""
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
-hostmakedepends="pkg-config pixman-devel"
-#makedepends=""
+hostmakedepends="pkg-config"
+makedepends="
+pixman-devel
+"
 #depends=""
 short_desc="hyprutils porque awebo que sí, no sé que hace pero es necesario jeje"
 maintainer=" <>"
@@ -21,16 +23,15 @@ changelog="https://raw.githubusercontent.com/hyprwm/hyprutils/main/CHANGELOG.md"
 distfiles="https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
 checksum=b4af2177ede4ca3e1bb0ffff10348f82d776b911dd1e64fe693edd8ec9488101
 
-hyprutils-devel_package() {
-        depends="${sourcepkg}>=${version}_${revision}"
-        short_desc+=" - development files"
-        pkg_install() {
-                vmove usr/lib/pkgconfig
-                vmove usr/include
-                vmove "usr/lib/*.so"
-        }
-}
-
 post_install() {
 	vlicense LICENSE
+}
+
+hyprutils-devel_package() { depends="${sourcepkg}>=${version}_${revision}"
+        short_desc+=" - development files"
+        pkg_install() {
+            vmove usr/lib/pkgconfig
+            vmove usr/include
+            vmove usr/lib/*.so
+        }
 }
