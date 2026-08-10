@@ -95,4 +95,5 @@ __save_to_history() {
     READLINE_POINT=0
 }
 bind -x '"\ew": __save_to_history'
+
 # ---
