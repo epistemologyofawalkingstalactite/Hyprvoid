@@ -1,0 +1,35 @@
+# Archivo de configuración de Alacritty (TOML)
+
+[window]
+# Margen interno de la ventana
+padding = { x = 10, y = 10 }
+
+# Opacidad de la ventana (requiere un compositor en Linux como Picom o Wayland)
+opacity = 0.67
+
+# Decoración de la ventana (Full, None, Transparent, Buttonless)
+decorations = "Full"
+
+[font]
+# Definir la familia tipográfica (asegúrate de tenerla instalada)
+size = 12.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+# # Esquema de colores integrado (ejemplo: Tokyo Night / Monokai / Solarized)
+# # Puedes definir tus propios colores hexadecimales si lo prefieres:
+# [colors.primary]
+# background = "#1a1b26"
+# foreground = "#c0caf5"
+
+[colors.normal]
+black = "#15161e"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#a9b1d6"
