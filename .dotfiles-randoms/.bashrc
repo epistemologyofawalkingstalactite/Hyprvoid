@@ -97,3 +97,11 @@ __save_to_history() {
 bind -x '"\ew": __save_to_history'
 
 # ---
+
+# ble.sh
+source ~/src/ble.sh/out/ble.sh
+
+# modo vim
+set -o vi
+
+# ---

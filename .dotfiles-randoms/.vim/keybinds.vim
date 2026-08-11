@@ -59,9 +59,9 @@ nnoremap Q <nop>
 
 " ---
 
-" Location list navigation (centra la pantalla...) (quitar la " para que sea)
-nnoremap <leader>k :lnext<CR>"zz
-nnoremap <leader>j :lprev<CR>"zz
+" Location list navigation ( | ponerle zz si querés que se centre)
+nnoremap <leader>k :lnext<CR>
+nnoremap <leader>j :lprev<CR>
 
 " ---
 

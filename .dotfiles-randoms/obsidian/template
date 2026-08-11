@@ -1,0 +1,34 @@
+# Template file for 'obsidian'
+pkgname=obsidian
+version=1.13.6  # Pon la versión actual que quieras compilar
+revision=1
+archs="x86_64"
+#build_wrksrc=
+#build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="Obsidian extensible knowledge base"
+maintainer=" <>"
+license="GPL-3.0-or-later"
+homepage="https://obsidian.md"
+#changelog=""
+distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian-${version}.tar.gz"
+checksum=325cb381c649ba62b4475627b416dc3929dc913d839e4bba766307863f63f8a5
+
+do_install() {
+    # Creamos el directorio de librerías y el bin
+    vmkdir usr/lib/obsidian
+    vmkdir usr/bin
+
+    # Copiamos los archivos extraídos al directorio de lib
+    vcopy . usr/lib/obsidian
+
+    # Creamos el symlink para el ejecutable principal
+    ln -sf /usr/lib/obsidian/obsidian ${DESTDIR}/usr/bin/obsidian
+}
