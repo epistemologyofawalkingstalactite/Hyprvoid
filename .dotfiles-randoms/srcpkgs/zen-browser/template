@@ -2,28 +2,39 @@
 pkgname=zen-browser
 version=1.21.12b
 revision=1
-#archs="i686 x86_64"
-#build_wrksrc=
-#build_style=yes
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
+archs="x86_64"
 hostmakedepends="tar"
-#makedepends=""
-#depends=""
-short_desc="a firefox thingy"
-maintainer=" <>"
+depends=""
+short_desc="Experience tranquillity while browsing the web without people tracking you!"
+maintainer="Tu Nombre <tu@email.com>"
 license="MPL-2.0"
 homepage="https://zen-browser.app/"
-#changelog=""
 distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz"
 checksum=47e1492bedca5ae4142f54a220559e0bef7a784fb530908f6059da766d16222f
 
 do_install() {
-    vmkdir usr/lib/zen-browser
-    vcopy * usr/lib/zen-browser/
-    vmkdir usr/bin
-    ln -sf /usr/lib/zen-browser/zen "${DESTDIR}/usr/bin/zen"
+	# Crear directorios necesarios
+	install -dm755 "${DESTDIR}/usr/lib/zen-browser" \
+				   "${DESTDIR}/usr/bin" \
+				   "${DESTDIR}/usr/share/applications" \
+				   "${DESTDIR}/usr/share/pixmaps"
+
+	# Copiar el binario y archivos de Zen Browser a /usr/lib/zen-browser
+	vcopy * "usr/lib/zen-browser"
+
+	# Crear enlace simbólico en /usr/bin
+	ln -sf /usr/lib/zen-browser/zen "${DESTDIR}/usr/bin/zen-browser"
+
+	# Instalar el archivo .desktop (necesitas crearlo en files/)
+	vinstall "${FILESDIR}/zen-browser.desktop" 644 usr/share/applications/
+
+	# Instalar el icono (necesitas descargarlo en files/)
+	vinstall "${FILESDIR}/zen-browser.png" 644 usr/share/pixmaps/
+}
+
+post_install() {
+	# Si hay licencia, incluirla
+	if [ -f "${DESTDIR}/usr/lib/zen-browser/LICENSE" ]; then
+		vlicense "${DESTDIR}/usr/lib/zen-browser/LICENSE"
+	fi
 }
